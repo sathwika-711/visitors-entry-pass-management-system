@@ -1,17 +1,21 @@
 package DAO;
 
+import Model.LocationsModel;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import Model.LocationsModel;
-
 public class LocationsDAO {
 
-	 // Fetch all locations
+    private static final Log log = LogFactory.getLog(LocationsDAO.class);
+
+
+    // Fetch all locations
     public List<LocationsModel> getAllLocations() {
         List<LocationsModel> locations = new ArrayList<>();
 
@@ -37,11 +41,11 @@ public class LocationsDAO {
                 locations.add(location);
             }
         } catch (Exception e) {
-            System.out.println("Error fetching locations: " + e.getMessage());
+            log.info("Error fetching locations: " + e.getMessage());
         }
 
         return locations;
-    }    
+    }
 
     // Get a single location by ID
     public LocationsModel getLocationById(int locationId) {
@@ -70,12 +74,12 @@ public class LocationsDAO {
             }
 
         } catch (Exception e) {
-            System.out.println("Error fetching location by ID: " + e.getMessage());
+            log.info("Error fetching location by ID: " + e.getMessage());
         }
 
         return location;
     }
-    
+
 
     // Insert a new location
     public boolean insertLocation(LocationsModel location) {
@@ -94,7 +98,7 @@ public class LocationsDAO {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
-            System.out.println("Error inserting location: " + e.getMessage());
+            log.info("Error inserting location: " + e.getMessage());
             return false;
         }
     }
@@ -117,7 +121,7 @@ public class LocationsDAO {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
-            System.out.println("Error updating location: " + e.getMessage());
+            log.info("Error updating location: " + e.getMessage());
             return false;
         }
     }
@@ -132,11 +136,11 @@ public class LocationsDAO {
             return ps.executeUpdate() > 0;
 
         } catch (Exception e) {
-            System.out.println("Error deleting location: " + e.getMessage());
+            log.info("Error deleting location: " + e.getMessage());
             return false;
         }
     }
-    
+
     //  Get location name by location_id
     public String getLocationNameById(int locationId) {
         String locationName = null;

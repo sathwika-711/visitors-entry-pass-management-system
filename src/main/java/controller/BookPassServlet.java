@@ -1,19 +1,27 @@
 package controller;
 
-import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.*;
-import java.io.IOException;
-import java.sql.Date;
-
 import DAO.BookingsDAO;
 import DAO.LocationsDAO;
 import Model.BookingsModel;
 import Model.LocationsModel;
 import Model.UserModel;
+import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.io.IOException;
+import java.sql.Date;
 
 @WebServlet("/BookPassServlet")
 public class BookPassServlet extends HttpServlet {
+
+    private static final Log log = LogFactory.getLog(BookPassServlet.class);
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
@@ -21,13 +29,13 @@ public class BookPassServlet extends HttpServlet {
         UserModel user = (UserModel) session.getAttribute("user");
 
         if (user == null) {
-            System.out.println("User not logged in. Redirecting to login.jsp");
+            log.info("User not logged in. Redirecting to login.jsp");
             response.sendRedirect("login.jsp");
             return;
         }
 
-        System.out.println("Request received in BookPassServlet");
-        System.out.println("User ID: " + user);
+        log.info("Request received in BookPassServlet");
+        log.info("User ID: " + user);
 
         try {
             int locationId = Integer.parseInt(request.getParameter("location_id"));
@@ -35,22 +43,22 @@ public class BookPassServlet extends HttpServlet {
             int children = Integer.parseInt(request.getParameter("children"));
             Date visitDate = Date.valueOf(request.getParameter("visit_date"));
 
-            System.out.println("Location ID: " + locationId);
-            System.out.println("No. of Adults: " + adults);
-            System.out.println("No. of Children: " + children);
-            System.out.println("Visit Date: " + visitDate);
+            log.info("Location ID: " + locationId);
+            log.info("No. of Adults: " + adults);
+            log.info("No. of Children: " + children);
+            log.info("Visit Date: " + visitDate);
 
             LocationsDAO locationDAO = new LocationsDAO();
             LocationsModel location = locationDAO.getLocationById(locationId);
 
-            System.out.println("Location Name: " + location.getLocationName());
-            System.out.println("Adult Pass Price: " + location.getAdultPassPrice());
-            System.out.println("Child Pass Price: " + location.getChildPassPrice());
+            log.info("Location Name: " + location.getLocationName());
+            log.info("Adult Pass Price: " + location.getAdultPassPrice());
+            log.info("Child Pass Price: " + location.getChildPassPrice());
 
             double total = (adults * location.getAdultPassPrice()) +
-                           (children * location.getChildPassPrice());
+                    (children * location.getChildPassPrice());
 
-            System.out.println("Total Price: " + total);
+            log.info("Total Price: " + total);
 
             BookingsModel booking = new BookingsModel();
             booking.setUserId(user.getUserId());
@@ -64,7 +72,7 @@ public class BookPassServlet extends HttpServlet {
             BookingsDAO dao = new BookingsDAO();
             boolean success = dao.addBooking(booking);
 
-            System.out.println("Booking Status: " + (success ? "Success" : "Failure"));
+            log.info("Booking Status: " + (success ? "Success" : "Failure"));
 
             if (success) {
                 session.setAttribute("message", "Booking successful!");
@@ -75,7 +83,7 @@ public class BookPassServlet extends HttpServlet {
             response.sendRedirect("paymentServlet?status=" + (success ? "success" : "fail"));
 
         } catch (Exception e) {
-            System.out.println("Exception occurred: " + e.getMessage());
+            log.info("Exception occurred: " + e.getMessage());
             e.printStackTrace();
             response.sendRedirect("locationDetail.jsp?status=error");
         }

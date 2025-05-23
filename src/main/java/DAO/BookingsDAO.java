@@ -1,18 +1,22 @@
 package DAO;
 
+import Model.BookingsModel;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.time.LocalDate;
-import java.util.*;
-
-import Model.Booking;
-import Model.BookingsModel;
-import java.sql.Date;
-import java.sql.DriverManager;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 public class BookingsDAO {
+
+    private static final Log log = LogFactory.getLog(BookingsDAO.class);
+
 
     // Add a new booking
     public boolean addBooking(BookingsModel booking) {
@@ -37,7 +41,7 @@ public class BookingsDAO {
             }
 
         } catch (Exception e) {
-            System.out.println("Error adding booking: " + e.getMessage());
+            log.info("Error adding booking: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -52,7 +56,7 @@ public class BookingsDAO {
                 "       (b.number_of_adults + b.number_of_childs) AS total_passes, " +
                 "       b.total_price, b.status " +
                 "FROM bookings b JOIN locations l ON b.location_id = l.location_id " +
-                "WHERE b.user_id = ? ORDER BY b.visit_date ASC";
+                "WHERE b.user_id = ? ORDER BY b.visit_date DESC";
 
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
@@ -73,7 +77,7 @@ public class BookingsDAO {
             }
 
         } catch (Exception e) {
-            System.out.println("Error fetching bookings: " + e.getMessage());
+            log.info("Error fetching bookings: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -85,16 +89,16 @@ public class BookingsDAO {
         boolean status = false;
         String sql = "UPDATE bookings SET status = 'cancelled' WHERE bookings_id = ?";
 
-        System.out.println("cancelled bookings:");
+        log.info("cancelled bookings:");
         try (Connection con = DBConnection.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
 
             ps.setInt(1, bookingId);
             int updated = ps.executeUpdate();
             status = updated > 0;
-            System.out.println(status);
+            log.info(status);
         } catch (Exception e) {
-            System.out.println("Error cancelling booking: " + e.getMessage());
+            log.info("Error cancelling booking: " + e.getMessage());
             e.printStackTrace();
         }
 
@@ -115,7 +119,6 @@ public class BookingsDAO {
     }
 
 
-
     public int getMonthlyVisitorCount(int locationId) throws SQLException {
         String sql = "SELECT SUM(number_of_adults + number_of_childs) FROM bookings WHERE MONTH(visit_date) = MONTH(CURDATE()) AND YEAR(visit_date) = YEAR(CURDATE()) AND location_id = ? AND status = 'confirmed'";
         try (Connection conn = DBConnection.getConnection();
@@ -128,8 +131,6 @@ public class BookingsDAO {
         }
         return 0;
     }
-
-
 
 
     public BookingsModel getLatestBookingByUserId(int userId) {
@@ -179,8 +180,6 @@ public class BookingsDAO {
 
         return updated;
     }
-
-
 
 
     public List<Map<String, Object>> getVisitorRevenueReport(String period) throws SQLException {
@@ -385,9 +384,6 @@ public class BookingsDAO {
 
         return booking;  // Return the booking model (can be null if no booking found)
     }
-
-
-
 
 
 }

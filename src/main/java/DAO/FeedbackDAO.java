@@ -1,10 +1,20 @@
 package DAO;
 
 import Model.Feedback;
-import java.sql.*;
-import java.util.*;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
+
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class FeedbackDAO {
+
+    private static final Log log = LogFactory.getLog(FeedbackDAO.class);
+
     private Connection conn;
 
     public FeedbackDAO() {
@@ -34,7 +44,7 @@ public class FeedbackDAO {
             con.close();
 
         } catch (Exception e) {
-            System.out.println("Error in saveFeedback: " + e.getMessage());
+            log.info("Error in saveFeedback: " + e.getMessage());
             e.printStackTrace(); // Make sure this prints in console for debugging
         }
 
@@ -44,8 +54,8 @@ public class FeedbackDAO {
     public List<Feedback> getAllFeedbacks() {
         List<Feedback> list = new ArrayList<>();
         String sql = "SELECT f.*, l.location_name FROM feedbacks f " +
-                     "LEFT JOIN locations l ON f.location_id = l.location_id " +
-                     "ORDER BY f.submitted_at DESC";
+                "LEFT JOIN locations l ON f.location_id = l.location_id " +
+                "ORDER BY f.submitted_at DESC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql);
@@ -68,13 +78,13 @@ public class FeedbackDAO {
         }
         return list;
     }
-    
-    
+
+
     public List<Feedback> getFeedbacksByRating(int ratingFilter) {
         List<Feedback> list = new ArrayList<>();
         String sql = "SELECT f.*, l.location_name FROM feedbacks f " +
-                     "LEFT JOIN locations l ON f.location_id = l.location_id " +
-                     "WHERE f.rating = ? ORDER BY f.submitted_at DESC";
+                "LEFT JOIN locations l ON f.location_id = l.location_id " +
+                "WHERE f.rating = ? ORDER BY f.submitted_at DESC";
 
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -99,6 +109,7 @@ public class FeedbackDAO {
         }
         return list;
     }
+
     public List<Feedback> getFeedbacksByLocationId(int locationId) {
         List<Feedback> feedbackList = new ArrayList<>();
 
