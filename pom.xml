@@ -20,7 +20,7 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-    
+
     <!-- Jakarta Servlet API -->
     <dependency>
       <groupId>jakarta.servlet</groupId>
@@ -28,7 +28,7 @@
       <version>6.0.0</version>
       <scope>provided</scope>
     </dependency>
-    
+
     <!-- Jakarta JSP API -->
     <dependency>
       <groupId>jakarta.servlet.jsp</groupId>
@@ -36,14 +36,14 @@
       <version>3.1.0</version>
       <scope>provided</scope>
     </dependency>
-    
+
     <!-- MySQL Connector -->
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <version>8.0.33</version>
     </dependency>
-    
+
     <!-- Jakarta JSTL -->
     <dependency>
       <groupId>jakarta.servlet.jsp.jstl</groupId>
@@ -55,14 +55,14 @@
       <artifactId>jakarta.servlet.jsp.jstl</artifactId>
       <version>3.0.1</version>
     </dependency>
-    
+
     <!-- Jackson for JSON processing -->
     <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>2.15.2</version>
     </dependency>
-    
+
     <!-- Commons IO -->
     <dependency>
       <groupId>commons-io</groupId>
@@ -76,13 +76,25 @@
       <artifactId>jakarta.mail</artifactId>
       <version>2.0.1</version>
     </dependency>
-    
+
     <!-- Jakarta Mail API -->
     <dependency>
       <groupId>jakarta.mail</groupId>
       <artifactId>jakarta.mail-api</artifactId>
       <version>2.1.2</version>
     </dependency>
+    <dependency>
+      <groupId>com.google.zxing</groupId>
+      <artifactId>core</artifactId>
+      <version>3.5.2</version>
+    </dependency>
+    <dependency>
+      <groupId>com.google.zxing</groupId>
+      <artifactId>javase</artifactId>
+      <version>3.5.2</version>
+    </dependency>
+
+
   </dependencies>
   <build>
     <finalName>untitled</finalName>

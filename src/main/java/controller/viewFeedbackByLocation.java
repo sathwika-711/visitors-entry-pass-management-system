@@ -11,7 +11,7 @@ import jakarta.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/viewFeedbacksByLocation")
+@WebServlet("/viewFeedbackByLocation")
 public class viewFeedbackByLocation extends HttpServlet {
 
     // Handles GET requests to display feedbacks for the manager's location

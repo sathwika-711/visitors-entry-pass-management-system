@@ -92,6 +92,19 @@ public class BookingsModel {
         this.status = status;
     }
 
+
+
+    private String visitorName;
+    private String locationName;
+
+    // Getters and Setters
+    public String getVisitorName() { return visitorName; }
+    public void setVisitorName(String visitorName) { this.visitorName = visitorName; }
+
+    public String getLocationName() { return locationName; }
+    public void setLocationName(String locationName) { this.locationName = locationName; }
+
+
     @Override
     public String toString() {
         return "BookingModel [bookingId=" + bookingId + ", userId=" + userId + ", locationId=" + locationId

@@ -181,6 +181,11 @@
     <h2>Payment Successful</h2>
     <p>Your payment has been processed successfully and your pass is confirmed. Enjoy your visit!</p>
     <a href="MyBookingsServlet" class="btn">View My Bookings</a>
+    <form method="get" action="downloadPassImage">
+        <button type="submit" class="btn">Download Visitor Pass (PNG)</button>
+    </form>
+
+
 </div>
 
 <script>

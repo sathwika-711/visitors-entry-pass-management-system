@@ -263,5 +263,131 @@ public class BookingsDAO {
         return 0.0;
     }
 
+//    public Map<String, Object> getBookingDetailsForPass(int bookingId) {
+//        Map<String, Object> bookingData = new HashMap<>();
+//
+//        String sql = "SELECT b.bookings_id, b.status, b.total_price, " +
+//                "(b.number_of_adults + b.number_of_childs) AS total_passes, " +
+//                "u.name AS user_name, l.location_name " +
+//                "FROM bookings b " +
+//                "JOIN users u ON b.user_id = u.user_id " +
+//                "JOIN locations l ON b.location_id = l.location_id " +
+//                "WHERE b.bookings_id = ?";
+//
+//        try (Connection con = DBConnection.getConnection();
+//             PreparedStatement ps = con.prepareStatement(sql)) {
+//
+//            ps.setInt(1, bookingId);
+//            ResultSet rs = ps.executeQuery();
+//
+//            if (rs.next()) {
+//                bookingData.put("booking_id", rs.getInt("bookings_id"));
+//                bookingData.put("status", rs.getString("status"));
+//                bookingData.put("total_price", rs.getDouble("total_price"));
+//                bookingData.put("total_passes", rs.getInt("total_passes"));
+//                bookingData.put("user_name", rs.getString("user_name"));
+//                bookingData.put("location_name", rs.getString("location_name"));
+//            }
+//
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
+//
+//        return bookingData;
+//    }
+
+// In BookingsDAO.java
+
+    public BookingsModel getLatestBookingWithUserDetails(int userId) {
+        BookingsModel booking = null;
+
+        try {
+            // Get the database connection
+            Connection con = DBConnection.getConnection();
+
+            // SQL query to get the latest booking with user and location details
+            String sql = "SELECT b.bookings_id, b.user_id, b.location_id, b.visit_date, " +
+                    "b.number_of_adults, b.number_of_childs, b.total_price, b.status, " +
+                    "u.name AS visitor_name, l.location_name " +
+                    "FROM bookings b " +
+                    "JOIN users u ON b.user_id = u.user_id " + // Correct user_id reference
+                    "JOIN locations l ON b.location_id = l.location_id " + // Correct location_id reference
+                    "WHERE b.user_id = ? " +
+                    "ORDER BY b.bookings_id DESC " +
+                    "LIMIT 1";  // Get only the latest booking
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, userId); // Set user ID in the query
+
+            ResultSet rs = ps.executeQuery();
+
+            // If a booking is found, populate the BookingsModel
+            if (rs.next()) {
+                booking = new BookingsModel();
+                booking.setBookingId(rs.getInt("bookings_id"));
+                booking.setUserId(rs.getInt("user_id"));
+                booking.setLocationId(rs.getInt("location_id"));
+                booking.setVisitDate(rs.getDate("visit_date"));
+                booking.setNumberOfAdults(rs.getInt("number_of_adults"));
+                booking.setNumberOfChildren(rs.getInt("number_of_childs"));  // Correct field name
+                booking.setTotalPrice(rs.getDouble("total_price"));
+                booking.setStatus(rs.getString("status"));
+                booking.setVisitorName(rs.getString("visitor_name"));
+                booking.setLocationName(rs.getString("location_name"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();  // Handle any exceptions during the query
+        }
+
+        return booking;  // Return the booking model (can be null if no booking found)
+    }
+
+    public BookingsModel getBookingById(int bookingId) {
+        BookingsModel booking = null;
+
+        try {
+            // Get the database connection
+            Connection con = DBConnection.getConnection();
+
+            // SQL query to get the booking by booking_id with user and location details
+            String sql = "SELECT b.bookings_id, b.user_id, b.location_id, b.visit_date, " +
+                    "b.number_of_adults, b.number_of_childs, b.total_price, b.status, " +
+                    "u.name AS visitor_name, l.location_name " +
+                    "FROM bookings b " +
+                    "JOIN users u ON b.user_id = u.user_id " + // Correct user_id reference
+                    "JOIN locations l ON b.location_id = l.location_id " + // Correct location_id reference
+                    "WHERE b.bookings_id = ?";  // Fetch by specific booking_id
+
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setInt(1, bookingId); // Set booking ID in the query
+
+            ResultSet rs = ps.executeQuery();
+
+            // If a booking is found, populate the BookingsModel
+            if (rs.next()) {
+                booking = new BookingsModel();
+                booking.setBookingId(rs.getInt("bookings_id"));
+                booking.setUserId(rs.getInt("user_id"));
+                booking.setLocationId(rs.getInt("location_id"));
+                booking.setVisitDate(rs.getDate("visit_date"));
+                booking.setNumberOfAdults(rs.getInt("number_of_adults"));
+                booking.setNumberOfChildren(rs.getInt("number_of_childs"));
+                booking.setTotalPrice(rs.getDouble("total_price"));
+                booking.setStatus(rs.getString("status"));
+                booking.setVisitorName(rs.getString("visitor_name"));
+                booking.setLocationName(rs.getString("location_name"));
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();  // Handle any exceptions during the query
+        }
+
+        return booking;  // Return the booking model (can be null if no booking found)
+    }
+
+
+
+
 
 }

@@ -4,7 +4,6 @@
 <%@ page import="java.sql.Date" %>
 
 <%
-    // Declare LocalDate today only once
     LocalDate today = LocalDate.now();
     List<Map<String, Object>> bookings = (List<Map<String, Object>>) request.getAttribute("bookings");
 %>
@@ -16,20 +15,19 @@
     <title>My Bookings</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        /* Navbar Styling */
         .navbar {
             background: linear-gradient(90deg, #1e3c72, #2a5298);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 25px 40px; /* Increased padding */
+            padding: 25px 40px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-            min-height: 80px; /* Increased height */
-            margin-bottom: 20px; /* Added space below navbar */
+            min-height: 80px;
+            margin-bottom: 20px;
         }
 
         .navbar .left {
-            font-size: 26px; /* Larger title text */
+            font-size: 26px;
             font-weight: bold;
             color: white;
         }
@@ -42,11 +40,11 @@
         .navbar a {
             color: white;
             text-decoration: none;
-            padding: 14px 20px; /* Larger clickable area */
+            padding: 14px 20px;
             border-radius: 4px;
             transition: background-color 0.3s, color 0.3s;
             font-weight: 500;
-            font-size: 18px; /* Increased text size */
+            font-size: 18px;
         }
 
         .navbar a:hover {
@@ -62,7 +60,6 @@
             background-color: #c0392b;
         }
 
-        /* Custom Style for the ticket cards */
         .ticket-card {
             border: 2px dashed #6c757d;
             border-radius: 12px;
@@ -72,9 +69,50 @@
         }
 
         .status-cancelled {
-            background-color: #e74c3c;
-            color: white;
+            background-color: #e74c3c !important;
+            color: white !important;
         }
+
+        .btn-action {
+            padding: 6px 14px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            transition: all 0.3s ease;
+        }
+
+        .btn-cancel {
+            background-color: #dc3545;
+            color: white;
+            border: none;
+        }
+
+        .btn-cancel:hover {
+            background-color: #bb2d3b;
+        }
+
+        .btn-download {
+            background-color: #28a745;
+            color: white;
+            border: none;
+        }
+
+        .btn-download:hover {
+            background-color: #218838;
+        }
+        .col-md-4 {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* aligns items to the right */
+            justify-content: center; /* vertically centers */
+            gap: 10px; /* optional space between buttons */
+        }
+
+
     </style>
 </head>
 <body class="bg-light">
@@ -128,15 +166,19 @@
             <div class="col-md-4 text-end d-flex flex-column justify-content-center">
                 <%
                     String status = (String) booking.get("status");
-                    Date visitDate = (Date) booking.get("visit_date"); // java.sql.Date
+                    Date visitDate = (Date) booking.get("visit_date");
                     LocalDate visitLocalDate = visitDate.toLocalDate();
 
                     if ((status.equals("pending") || status.equals("confirmed")) &&
                             (visitLocalDate.isEqual(today) || visitLocalDate.isAfter(today))) {
                 %>
-                <form method="post" action="CancelBookingServlet">
+                <form method="post" action="CancelBookingServlet" class="mb-2">
                     <input type="hidden" name="booking_id" value="<%= booking.get("bookings_id") %>">
-                    <button type="submit" class="btn btn-danger">Cancel</button>
+                    <button type="submit" class="btn btn-danger">❌ Cancel</button>
+                </form>
+                <form method="get" action="downloadPassImagebyID">
+                    <input type="hidden" name="booking_id" value="<%= booking.get("bookings_id") %>">
+                    <button type="submit" class="btn btn-success">⬇️ Download Pass</button>
                 </form>
                 <%
                 } else {
