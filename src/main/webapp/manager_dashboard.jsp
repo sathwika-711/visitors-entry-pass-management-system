@@ -182,7 +182,7 @@
     <!-- Action Buttons -->
     <a href="VisitorDashboardServlet" class="btn">Manage Visitors</a>
     <a href="FutureVisitorsServlet" class="btn">Future Visitors</a>
-    <a href="viewFeedbackByLocation" class="btn">View Feedbacks</a>
+    <a href="viewFeedbackByLocation" class="btn">View Feedback</a>
 
     <!-- Visitor Stats -->
     <div class="visitor-summary">

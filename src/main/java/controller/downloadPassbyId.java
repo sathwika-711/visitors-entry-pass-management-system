@@ -1,3 +1,4 @@
+
 package controller;
 
 import DAO.BookingsDAO;
@@ -14,7 +15,7 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.UUID;
 
-@WebServlet("/downloadPassImagebyID")
+@WebServlet("/downloadPassbyId")
 public class downloadPassbyId extends HttpServlet {
 
     @Override

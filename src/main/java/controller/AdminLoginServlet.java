@@ -83,7 +83,7 @@ public class AdminLoginServlet extends HttpServlet {
                 session.setAttribute("totalLocations", 0);
             }
             
-            response.sendRedirect("adminhome.jsp");
+            response.sendRedirect("adminlogin.jsp?status=success");
         } else {
             // Failed login: redirect with error
             response.sendRedirect("adminlogin.jsp?status=fail");

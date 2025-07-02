@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.List;
 
 @WebServlet("/viewFeedbackByLocation")
-public class viewFeedbackByLocation extends HttpServlet {
+public class ViewFeedbackByLocation extends HttpServlet {
 
     // Handles GET requests to display feedbacks for the manager's location
     protected void doGet(HttpServletRequest request, HttpServletResponse response)

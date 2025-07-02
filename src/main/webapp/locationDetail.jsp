@@ -5,7 +5,7 @@
 <%
     LocationsModel location = (LocationsModel) request.getAttribute("location");
     if (location == null) {
-        location = new LocationsModel(); 
+        location = new LocationsModel();
         location.setLocationName("Unknown");
         location.setDescription("Location not found.");
     }
@@ -20,6 +20,7 @@
     <title>Location Details</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/25/25694.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -45,7 +46,7 @@
         }
 
         .navbar .left {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             color: white;
         }
@@ -93,13 +94,13 @@
 <!-- Custom Navbar -->
 <div class="navbar">
     <div class="left">
-        Visitors Entry Pass Management System
+        <i class="fas fa-ticket-alt"></i> Visitors Entry Pass Management System
     </div>
     <div class="right">
         <a href="visitorhome.jsp">Home</a>
         <a href="locations">Book Pass</a>
         <a href="MyBookingsServlet">My Bookings</a>
-        <a href="feedbackform.jsp">Give Feedback</a>
+        <a href="submitFeedback">Give Feedback</a>
         <a href="profile">Profile</a>
         <a href="LogoutServlet" class="logout">Logout</a>
     </div>
@@ -150,7 +151,7 @@
         <div class="modal-footer">
             <button class="btn btn-primary" type="submit">Book Now</button>
         </div>
-    </form action="BookPassServlet">
+    </form>
   </div>
 </div>
 

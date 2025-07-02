@@ -4,6 +4,7 @@
     <title>Payment Successful</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -26,7 +27,7 @@
         }
 
         .navbar .left {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             color: white;
         }
@@ -156,7 +157,7 @@
 <!-- Navbar Start -->
 <div class="navbar">
     <div class="left">
-        Visitors Entry Pass Management System
+        <i class="fas fa-ticket-alt"></i> Visitors Entry Pass Management System
     </div>
     <div class="right">
         <a href="visitorhome.jsp">Home</a>

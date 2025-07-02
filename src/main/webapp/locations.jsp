@@ -13,6 +13,7 @@
     <title>All Locations</title>
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/25/25694.png" type="image/png">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -39,7 +40,7 @@
         }
 
         .navbar .left {
-            font-size: 26px; /* Larger title text */
+            font-size: 24px; /* Larger title text */
             font-weight: bold;
             color: white;
         }
@@ -71,6 +72,30 @@
         .navbar .logout:hover {
             background-color: #c0392b;
         }
+        .map-btn {
+            background-color: #28a745; /* Bootstrap success green */
+            color: white;
+            padding: 10px 18px;
+            font-size: 16px;
+            font-weight: 500;
+            border: none;
+            border-radius: 6px;
+            text-decoration: none;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .map-btn i {
+            margin-right: 8px;
+        }
+
+        .map-btn:hover {
+            background-color: #218838;
+            transform: scale(1.05);
+            text-decoration: none;
+            color: white;
+        }
 
     </style>
 </head>
@@ -79,7 +104,7 @@
 <!-- Navbar Start -->
 <div class="navbar">
     <div class="left">
-        Visitors Entry Pass Management System
+        <i class="fas fa-ticket-alt"></i> Visitors Entry Pass Management System
     </div>
     <div class="right">
         <a href="visitorhome.jsp">Home</a>
@@ -94,7 +119,14 @@
 
 <!-- Main Content -->
 <div class="container mt-5">
-    <h2 class="text-center mb-4">All Locations</h2>
+    <div class="position-relative mb-4" style="height: 40px;">
+        <h2 class="position-absolute top-50 start-50 translate-middle m-0">All Locations</h2>
+        <a href="https://www.google.com/maps/" target="_blank" class="btn btn-success position-absolute end-0 top-50 translate-middle-y" style="min-width: 150px;">
+            <i class="fas fa-map-marker-alt me-2"></i> View on Map
+        </a>
+    </div>
+
+
 
     <div class="row g-4">
         <%

@@ -4,6 +4,7 @@
 <head>
     <title>Submit Feedback</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -30,7 +31,7 @@
         }
 
         .navbar .left {
-            font-size: 26px; /* Larger title text */
+            font-size: 24px; /* Larger title text */
             font-weight: bold;
             color: white;
         }
@@ -129,7 +130,7 @@
 <!-- Navbar Start -->
 <div class="navbar">
     <div class="left">
-        Visitors Entry Pass Management System
+        <i class="fas fa-ticket-alt"></i> Visitors Entry Pass Management System
     </div>
     <div class="right">
         <a href="visitorhome.jsp">Home</a>

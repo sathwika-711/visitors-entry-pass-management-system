@@ -5,9 +5,11 @@ import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -384,6 +386,45 @@ public class BookingsDAO {
 
         return booking;  // Return the booking model (can be null if no booking found)
     }
+
+    public double getTotalPrice(int bookingId) {
+        double price = 0;
+        String sql = "SELECT total_price FROM bookings WHERE bookings_id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(sql)) {
+
+            ps.setInt(1, bookingId);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                price = rs.getDouble("total_price");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return price;
+    }
+    public LocalDate getVisitDate(int bookingId) throws SQLException {
+        LocalDate visitDate = null;
+        String query = "SELECT visit_date FROM bookings WHERE bookings_id = ?";
+
+        try (Connection con = DBConnection.getConnection();
+             PreparedStatement ps = con.prepareStatement(query)) {
+
+            ps.setInt(1, bookingId);
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                Date sqlDate = rs.getDate("visit_date");
+                if (sqlDate != null) {
+                    visitDate = sqlDate.toLocalDate();
+                }
+            }
+        }
+
+        return visitDate;
+    }
+
 
 
 }

@@ -5,6 +5,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Manage Locations</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -30,7 +31,7 @@
         }
 
         .navbar .left {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             color: white;
         }
@@ -174,14 +175,14 @@
 <!-- NAVBAR -->
 <div class="navbar">
     <div class="left">
-        Visitors Entry Pass Management System
+        <i class="fas fa-ticket-alt"></i> Visitors Entry Pass Management System
     </div>
     <div class="right">
         <a href="adminhome.jsp">Home</a>
         <a href="manageManagers?locationId=1">Manage Managers</a>
         <a href="manageLocations">Manage Locations</a>
         <a href="generateReports">Report & Analytics</a>
-        <a href="viewFeedbacks">Feedbacks</a>
+        <a href="viewFeedbacks">View Feedback</a>
         <a href="LogoutServlet?role=admin" class="logout">Logout</a>
     </div>
 </div>

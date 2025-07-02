@@ -45,7 +45,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("role", userDetails.getRole());
 
             // Redirect to the user homepage or dashboard
-            response.sendRedirect("visitorhome.jsp");
+            response.sendRedirect("login.jsp?status=success");
         } else {
             // If invalid, redirect back to the login page with a failure status
             response.sendRedirect("login.jsp?status=fail");

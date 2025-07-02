@@ -16,7 +16,7 @@ public class BookingsModel {
     public BookingsModel() {}
 
     public BookingsModel(int bookingId, int userId, int locationId, int numberOfAdults, int numberOfChils,
-                        double totalPrice, Date visitDate, String status) {
+                         double totalPrice, Date visitDate, String status) {
         this.bookingId = bookingId;
         this.userId = userId;
         this.locationId = locationId;
@@ -96,6 +96,14 @@ public class BookingsModel {
 
     private String visitorName;
     private String locationName;
+
+    public int getNumberOfChilds() {
+        return numberOfChilds;
+    }
+
+    public void setNumberOfChilds(int numberOfChilds) {
+        this.numberOfChilds = numberOfChilds;
+    }
 
     // Getters and Setters
     public String getVisitorName() { return visitorName; }

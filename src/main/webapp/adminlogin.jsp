@@ -9,7 +9,6 @@
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/25/25694.png" type="image/png">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Bootstrap CSS & Icons -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
@@ -162,12 +161,25 @@
             color: red;
             font-size: 13px;
         }
+        /* Styles for success/error icons in modal (Make sure these are present in your <style> block) */
+        .modal-body .icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        .modal-body .icon.success {
+            color: #28a745; /* Green */
+        }
+        .modal-body .icon.error {
+            color: #dc3545; /* Red */
+        }
+        .modal-body p {
+            font-size: 1.1em;
+            color: #333;
+        }
     </style>
 </head>
 
 <body>
-
-<!-- Navbar -->
 
 <div class="navbar">
     <div class="left">
@@ -179,8 +191,6 @@
         <a href="adminlogin.jsp"><i class="fas fa-user-shield"></i> Admin</a>
     </div>
 </div>
-
-<!-- Centered Admin Login Form -->
 
 <div class="center-wrapper">
     <div class="glass-container">
@@ -197,15 +207,55 @@
             <input type="submit" class="btn" value="Login">
         </form>
 
+        <%-- Removed the direct error message for consistency with modal --%>
         <% if ("fail".equals(request.getParameter("status"))) { %>
         <div class="error-message">Invalid email or password!</div>
         <% } %>
     </div>
 </div>
 
-<!-- Bootstrap JS -->
+<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="statusModalLabel">Admin Login Status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div id="modalIcon" class="icon"></div>
+                <p id="modalMessage"></p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="modalOkButton">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const loginStatus = urlParams.get('status');
+
+        const modal = new bootstrap.Modal(document.getElementById('statusModal'));
+        const modalMessage = document.getElementById('modalMessage');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalOkButton = document.getElementById('modalOkButton');
+
+        // Handle admin login status
+        if (loginStatus === 'success') {
+            modalIcon.className = 'icon success fas fa-check-circle';
+            modalMessage.textContent = 'Admin login successful!';
+            modalOkButton.onclick = function() {
+                // IMPORTANT: Change 'admin_dashboard.jsp' to your actual admin home page
+                window.location.href = 'adminhome.jsp';
+            };
+            modal.show();
+        }
+    });
+</script>
 
 </body>
 </html>

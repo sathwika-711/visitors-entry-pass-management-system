@@ -46,7 +46,7 @@ public class ManagerLoginServlet extends HttpServlet {
 
             // Redirecting to the dashboard page
             log.info("Redirecting to manager_dashboard.jsp");
-            response.sendRedirect("ManagerDashboardServlet");
+            response.sendRedirect("manager_login.jsp?status=success");
             // You can create this page later
         } else {
             // Print when login fails
@@ -54,8 +54,8 @@ public class ManagerLoginServlet extends HttpServlet {
 
             // Setting error message and forwarding to the login page
             request.setAttribute("error", "Invalid email or password!");
-            RequestDispatcher dispatcher = request.getRequestDispatcher("manager_login.jsp");
-            dispatcher.forward(request, response);
+            response.sendRedirect("manager_login.jsp?status=fail");
+
         }
     }
 }

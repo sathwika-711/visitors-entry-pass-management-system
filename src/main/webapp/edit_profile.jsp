@@ -10,10 +10,11 @@
     <meta charset="UTF-8">
     <title>Edit Profile</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <style>
         body {
             font-family: Arial, sans-serif;
-            background: linear-gradient(to right, #eef2f3, #8e9eab);
+            background: #f0f4f8;
             margin: 0;
             padding: 0;
         }
@@ -32,7 +33,7 @@
         }
 
         .navbar .left {
-            font-size: 26px; /* Larger title text */
+            font-size: 24px; /* Larger title text */
             font-weight: bold;
             color: white;
         }
@@ -137,7 +138,7 @@
 <!-- Navbar Start -->
 <div class="navbar">
     <div class="left">
-        Visitors Entry Pass Management System
+        <i class="fas fa-ticket-alt"></i> Visitors Entry Pass Management System
     </div>
     <div class="right">
         <a href="visitorhome.jsp">Home</a>

@@ -6,6 +6,7 @@
     <title>Visitor & Revenue Report</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
@@ -32,7 +33,7 @@
         }
 
         .navbar .left {
-            font-size: 26px;
+            font-size: 24px;
             font-weight: bold;
             color: white;
         }
@@ -140,14 +141,14 @@
 <!-- Navbar -->
 <div class="navbar">
     <div class="left">
-        Visitors Entry Pass Management System
+        <i class="fas fa-ticket-alt"></i> Visitors Entry Pass Management System
     </div>
     <div class="right">
         <a href="adminhome.jsp">Home</a>
         <a href="manageManagers?locationId=1">Manage Managers</a>
         <a href="manageLocations">Manage Locations</a>
         <a href="generateReports">Report & Analytics</a>
-        <a href="viewFeedbacks">Feedbacks</a>
+        <a href="viewFeedbacks">View Feedback</a>
         <a href="LogoutServlet?role=admin" class="logout">Logout</a>
     </div>
 </div>

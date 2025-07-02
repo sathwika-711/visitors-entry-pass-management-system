@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="https://cdn-icons-png.flaticon.com/512/25/25694.png" type="image/png">
 
-    <!-- Bootstrap & Fonts -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
@@ -162,11 +161,27 @@
                 align-items: flex-start;
             }
         }
+
+        /* Styles for success/error icons in modal (Copy these from your login.jsp as they are missing in your register.jsp provided) */
+        .modal-body .icon {
+            font-size: 50px;
+            margin-bottom: 20px;
+        }
+        .modal-body .icon.success {
+            color: #28a745; /* Green */
+        }
+        .modal-body .icon.error {
+            color: #dc3545; /* Red */
+        }
+        .modal-body p {
+            font-size: 1.1em;
+            color: #333;
+        }
     </style>
+
 </head>
 <body>
 
-<!-- Navbar -->
 <div class="navbar">
     <div class="left">
         <i class="fas fa-ticket-alt"></i> Visitors Entry Pass Management System
@@ -179,7 +194,6 @@
 </div>
 
 
-<!-- Registration Form -->
 <div class="center-wrapper">
     <div class="glass-container">
         <h2>User Registration</h2>
@@ -211,7 +225,55 @@
     </div>
 </div>
 
-<!-- Bootstrap JS -->
+<div class="modal fade" id="statusModal" tabindex="-1" aria-labelledby="statusModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="statusModalLabel">Registration Status</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <div id="modalIcon" class="icon"></div>
+                <p id="modalMessageLine1"></p> <p id="modalMessageLine2"></p> </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="modalOkButton">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const registrationStatus = urlParams.get('status');
+        const modal = new bootstrap.Modal(document.getElementById('statusModal'));
+        const modalMessageLine1 = document.getElementById('modalMessageLine1');
+        const modalMessageLine2 = document.getElementById('modalMessageLine2');
+        const modalIcon = document.getElementById('modalIcon');
+        const modalOkButton = document.getElementById('modalOkButton');
+
+        if (registrationStatus === 'success') {
+            modalIcon.className = 'icon success fas fa-check-circle';
+            modalMessageLine1.textContent = 'Registration successful!';
+            modalMessageLine2.textContent = 'You can now log in.';
+            modalOkButton.onclick = function() {
+                window.location.href = 'login.jsp'; // Redirect to login page on OK with a specific param for login.jsp
+            };
+            modal.show();
+        } else if (registrationStatus === 'fail') {
+            modalIcon.className = 'icon error fas fa-times-circle';
+            modalMessageLine1.textContent = 'Registration failed.';
+            modalMessageLine2.textContent = 'Please try again or check your details.';
+            modalOkButton.onclick = function() {
+                modal.hide(); // Just hide the modal, stay on register page
+                window.history.replaceState({}, document.title, window.location.pathname); // Clean URL
+            };
+            modal.show();
+        }
+    });
+</script>
+
 </body>
 </html>

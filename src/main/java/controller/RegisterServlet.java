@@ -31,7 +31,7 @@ public class RegisterServlet extends HttpServlet {
         // Redirect based on the result of registration
         if (result) {
             // If registration is successful, redirect to the login page
-            response.sendRedirect("login.jsp");
+            response.sendRedirect("register.jsp?status=success");
         } else {
             // If registration failed, redirect back to the registration page with an error
             response.sendRedirect("register.jsp?status=fail");
